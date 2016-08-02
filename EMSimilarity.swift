@@ -28,12 +28,12 @@ class EMSimilarity {
     private var currentSimMode = [EMSimilarityMode.Cosine]
     
     /** Set the currentSimMode via push **/
-    func pushCurrentSimMode(mode: EMSimilarityMode) {
+    func pushSimMode(mode: EMSimilarityMode) {
         self.currentSimMode.append(mode)
     }
     
     /** Pop the currentSimMode via pop if it won't make the stack empty **/
-    func popCurrentSimMode() {
+    func popSimMode() {
         if self.currentSimMode.count > 1 {
             self.currentSimMode.popLast()
         }
@@ -48,12 +48,12 @@ class EMSimilarity {
     private var currentMismatchMode = [EMVectorSizeMismatchMode.Bail]
     
     /** Set the currentMismatcMode via push **/
-    func pushCurrentMismatchMode(mode: EMVectorSizeMismatchMode) {
+    func pushMismatchMode(mode: EMVectorSizeMismatchMode) {
         self.currentMismatchMode.append(mode)
     }
     
     /** Pop the currentMismatchMode via pop if it won't make the stack empty **/
-    func popCurrentMismatchMode() {
+    func popMismatchMode() {
         if self.currentMismatchMode.count > 1 {
             self.currentMismatchMode.popLast()
         }
@@ -141,6 +141,11 @@ class EMSimilarity {
      * Returns the similarity results or -1.0 on caught error
      */
     func compute(A: [Double], B: [Double]) -> Double {
+        // look for empty input
+        if A.count == 0 || B.count == 0 {
+            return -1
+        }
+        
         // look for vector size mismatch
         if A.count != B.count {
             if let mode = self.getCurrentMismatchMode() {
