@@ -64,6 +64,7 @@ class EMSimilarity {
         return self.currentMismatchMode.last
     }
     
+    /** Dot Product **/
     private func dot(A: [Double], B: [Double]) -> Double {
         var x: Double = 0
         for i in 0...A.count-1 {
@@ -72,6 +73,7 @@ class EMSimilarity {
         return x
     }
     
+    /** Vector Magnitude **/
     private func magnitude(A: [Double]) -> Double {
         var x: Double = 0
         for elt in A {
