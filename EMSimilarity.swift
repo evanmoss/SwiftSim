@@ -163,7 +163,7 @@ class EMSimilarity {
      */
     func compute(A: [Double], B: [Double]) -> Double {
         // look for empty input
-        if A.count == 0 || B.count == 0 {
+        if A.isEmpty || B.isEmpty {
             return -1
         }
         
