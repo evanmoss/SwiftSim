@@ -42,7 +42,7 @@ Similarity.compute(A, B: B)
 ## Vector Lengths Mismatch Mode
 By default, if A and B have different lengths, it will trigger a bail mode and return -1.0. However, you can specify a different mismatch mode like you do similarity mode.
 
-```siwft
+```swift
 enum EMVectorSizeMismatchMode {
     case Bail
     case Truncate
