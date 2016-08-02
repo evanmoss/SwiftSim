@@ -1,5 +1,5 @@
 # SwiftSim
-Vector similarity utility in Swift.  Currently, only arrays of Double are supported as input.  yIn the next update, this will be changed to be more generic.  The hope is that the numerical methods can operate on any arbitrary numerical input, and the set-basded metrics can operate on any Hashable type.
+Vector similarity utility in Swift.  Currently, only arrays of Double are supported as input.  yIn the next update, this will be changed to be more generic.  The hope is that the numerical methods can operate on any arbitrary numerical input, and the set-basded metrics can operate on any Hashable type.  Future versions may have a more functional object Class called SwiftSwim.
 
 ## Basic Usage
 ```swift
