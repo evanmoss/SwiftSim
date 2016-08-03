@@ -157,6 +157,7 @@ class EMSimilarity {
     }
     
     private let encforceEqualVectorSizes: Set<EMSimilarityMode> = [.Cosine, .Tanimoto, .Hamming]
+    private let bailOnEmptyInput: Set<EMSimilarityMode> = [.Cosine, .Tanimoto, .Ochiai, .Hamming]
     
     /**
      * Main compute mode
@@ -176,6 +177,11 @@ class EMSimilarity {
             mode = _mode
         }
         else {
+            return -1
+        }
+        
+        // is one of the vectors empty and would this case a divide by zero error?
+        if bailOnEmptyInput.contains(mode) && (A.isEmpty || B.isEmpty) {
             return -1
         }
         
