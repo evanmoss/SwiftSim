@@ -156,21 +156,33 @@ class EMSimilarity {
         return Double(x)
     }
     
+    private let encforceEqualVectorSizes: Set<EMSimilarityMode> = [.Cosine, .Tanimoto, .Hamming]
+    
     /**
      * Main compute mode
      * Double types
      * Returns the similarity results or -1.0 on caught error
      */
     func compute(A: [Double], B: [Double]) -> Double {
-        // look for empty input
-        if A.isEmpty || B.isEmpty {
+        // are both vectors empty?
+        if A.isEmpty && B.isEmpty {
+            // divide by zero -> D.N.E.
             return -1
         }
         
-        // look for vector size mismatch
-        if A.count != B.count {
-            if let mode = self.getCurrentMismatchMode() {
-                switch mode {
+        // get the mode
+        var mode = EMSimilarityMode.Cosine
+        if let _mode = self.getCurrentSimMode() {
+            mode = _mode
+        }
+        else {
+            return -1
+        }
+        
+        // look for vector size mismatch for modes in encforceEqualVectorSizes
+        if encforceEqualVectorSizes.contains(mode) && A.count != B.count {
+            if let mismatchMode = self.getCurrentMismatchMode() {
+                switch mismatchMode {
                 case .Bail:
                     return -1
                 case .Truncate:
@@ -188,26 +200,21 @@ class EMSimilarity {
             }
         }
         
-        if let mode = self.getCurrentSimMode() {
-            switch mode {
-            case .Cosine:
-                return cosineSim(A, B: B)
-            case .Tanimoto:
-                return tanimotoSim(A, B: B)
-            case .Ochiai:
-                return ochiaiSim(A, B: B)
-            case .JaccardIndex:
-                return jaccardIndex(A, B: B)
-            case .JaccardDistance:
-                return jaccardDist(A, B: B)
-            case .Dice:
-                return diceCoef(A, B: B)
-            case .Hamming:
-                return hammingDist(A, B: B)
-            }
-        }
-        else {
-            return -1
+        switch mode {
+        case .Cosine:
+            return cosineSim(A, B: B)
+        case .Tanimoto:
+            return tanimotoSim(A, B: B)
+        case .Ochiai:
+            return ochiaiSim(A, B: B)
+        case .JaccardIndex:
+            return jaccardIndex(A, B: B)
+        case .JaccardDistance:
+            return jaccardDist(A, B: B)
+        case .Dice:
+            return diceCoef(A, B: B)
+        case .Hamming:
+            return hammingDist(A, B: B)
         }
     }
 }
