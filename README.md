@@ -51,3 +51,6 @@ enum EMVectorSizeMismatchMode {
 // truncate the larger vector
 Similarity.pushMismatchMode(.Truncate)
 ```
+
+## Other Bail Conditions
+Currently, the other condition that will cause -1.0 to be returned is if an input array is empty.
