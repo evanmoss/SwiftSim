@@ -40,7 +40,7 @@ Similarity.compute(A, B: B)
 ```
 
 ## Vector Size Mismatch Mode
-By default, if A and B have different lengths, it will trigger a bail mode and return -1.0. However, you can specify a different mismatch mode like you do similarity mode.
+By default, if A and B have different lengths, and the mode is Cosine, Tanimoto, or Hamming, it will trigger a bail and return -1.0. However, you can specify a different mismatch mode like you do similarity mode.
 
 ```swift
 enum EMVectorSizeMismatchMode {
@@ -53,4 +53,4 @@ Similarity.pushMismatchMode(.Truncate)
 ```
 
 ## Other Bail Conditions
-Currently, the other condition that will cause -1.0 to be returned is if an input array is empty.
+Currently, the other condition that will cause -1.0 to be returned is if both input arrays are empty, or one of them is empty and the current mode is Cosine, Tanimoto, or Hamming.
