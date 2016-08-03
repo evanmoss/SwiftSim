@@ -53,4 +53,4 @@ Similarity.pushMismatchMode(.Truncate)
 ```
 
 ## Other Bail Conditions
-Currently, the other condition that will cause -1.0 to be returned is if both input arrays are empty, or one of them is empty and the current mode is Cosine, Tanimoto, or Hamming. This is to mitigate a divide by zero error, or to adhere to metric prequisites.
+Currently, another condition that will cause -1.0 to be returned is if both input arrays are empty, or one of them is empty and the current mode is Cosine, Tanimoto, Ochiai, or Hamming. This is to mitigate a divide by zero error, or to adhere to metric prequisites.
