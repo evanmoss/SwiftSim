@@ -48,6 +48,6 @@ enum EMVectorSizeMismatchMode {
     case Truncate
 }
 
-// truncate the smaller vector
+// truncate the larger vector
 Similarity.pushMismatchMode(.Truncate)
 ```
