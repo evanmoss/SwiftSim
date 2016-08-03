@@ -39,7 +39,7 @@ Similarity.compute(A, B: B)
 // 0.984731927834662
 ```
 
-## Vector Lengths Mismatch Mode
+## Vector Size Mismatch Mode
 By default, if A and B have different lengths, it will trigger a bail mode and return -1.0. However, you can specify a different mismatch mode like you do similarity mode.
 
 ```swift
