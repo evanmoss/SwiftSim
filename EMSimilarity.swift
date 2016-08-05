@@ -147,17 +147,24 @@ class EMSimilarity {
     
     /** Hamming distance **/
     private func hammingDist(A: [Double], B: [Double]) -> Double {
-        var x = 0
+        var x: Double = 0
+        
+        if A.isEmpty {
+            return x
+        }
+        
         for i in 0...A.count-1 {
             if A[i] != B[i] {
                 x += 1
             }
         }
-        return Double(x)
+        
+        return x
     }
     
     private let encforceEqualVectorSizes: Set<EMSimilarityMode> = [.Cosine, .Tanimoto, .Hamming]
-    private let bailOnEmptyInput: Set<EMSimilarityMode> = [.Cosine, .Tanimoto, .Ochiai, .Hamming]
+    private let bailOnEmptyInput: Set<EMSimilarityMode> = [.Cosine, .Tanimoto, .Ochiai]
+    private let allowEmptyInputs: Set<EMSimilarityMode> = [.Hamming]
     
     /**
      * Main compute mode
@@ -165,18 +172,18 @@ class EMSimilarity {
      * Returns the similarity results or -1.0 on caught error
      */
     func compute(A: [Double], B: [Double]) -> Double {
-        // are both vectors empty?
-        if A.isEmpty && B.isEmpty {
-            // divide by zero -> D.N.E.
-            return -1
-        }
-        
         // get the mode
         var mode = EMSimilarityMode.Cosine
         if let _mode = self.getCurrentSimMode() {
             mode = _mode
         }
         else {
+            return -1
+        }
+        
+        // are both vectors empty?
+        if A.isEmpty && B.isEmpty && !allowEmptyInputs.contains(mode) {
+            // divide by zero -> D.N.E.
             return -1
         }
         
@@ -195,8 +202,10 @@ class EMSimilarity {
                     let a = A.count < B.count ? A : B
                     let _b = A.count < B.count ? B : A
                     var b = [Double]()
-                    for i in 0...a.count-1 {
-                        b.append(_b[i])
+                    if a.count > 0 {
+                        for i in 0...a.count-1 {
+                            b.append(_b[i])
+                        }
                     }
                     return compute(a, B: b)
                 }
