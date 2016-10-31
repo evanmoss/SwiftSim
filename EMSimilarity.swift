@@ -89,7 +89,7 @@ class EMSimilarity {
     private func dot(A: [Double], B: [Double]) -> Double {
         var x: Double = 0
         for i in 0...A.count-1 {
-            x += A[i] * B[i];
+            x += A[i] * B[i]
         }
         return x
     }
