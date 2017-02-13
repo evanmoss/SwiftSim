@@ -105,14 +105,14 @@ class EMSimilarity {
     
     /** Cosine similarity **/
     private func cosineSim(A: [Double], B: [Double]) -> Double {
-        return dot(A, B: B) / (magnitude(A) * magnitude(B))
+        return dot(A: A, B: B) / (magnitude(A: A) * magnitude(A: B))
     }
     
     /** Tanimoto similarity **/
     private func tanimotoSim(A: [Double], B: [Double]) -> Double {
-        let Amag = magnitude(A)
-        let Bmag = magnitude(B)
-        let AdotB = dot(A, B: B)
+        let Amag = magnitude(A: A)
+        let Bmag = magnitude(A: B)
+        let AdotB = dot(A: A, B: B)
         return AdotB / (Amag * Amag + Bmag * Bmag - AdotB)
     }
     
@@ -121,7 +121,7 @@ class EMSimilarity {
         let a = Set(A)
         let b = Set(B)
         
-        return Double(a.intersect(b).count) / sqrt(Double(a.count) * Double(b.count))
+        return Double(a.intersection(b).count) / sqrt(Double(a.count) * Double(b.count))
     }
     
     /** Jaccard index **/
@@ -129,12 +129,12 @@ class EMSimilarity {
         let a = Set(A)
         let b = Set(B)
         
-        return Double(a.intersect(b).count) / Double(a.union(b).count)
+        return Double(a.intersection(b).count) / Double(a.union(b).count)
     }
     
     /** Jaccard distance **/
     private func jaccardDist(A: [Double], B: [Double]) -> Double {
-        return 1.0 - jaccardIndex(A, B: B)
+        return 1.0 - jaccardIndex(A: A, B: B)
     }
     
     /** Dice coeeficient **/
@@ -142,7 +142,7 @@ class EMSimilarity {
         let a = Set(A)
         let b = Set(B)
         
-        return 2.0 * Double(a.intersect(b).count) / (Double(a.count) + Double(b.count))
+        return 2.0 * Double(a.intersection(b).count) / (Double(a.count) + Double(b.count))
     }
     
     /** Hamming distance **/
@@ -207,7 +207,7 @@ class EMSimilarity {
                             b.append(_b[i])
                         }
                     }
-                    return compute(a, B: b)
+                    return compute(A: a, B: b)
                 }
             }
             else {
@@ -217,19 +217,19 @@ class EMSimilarity {
         
         switch mode {
         case .Cosine:
-            return cosineSim(A, B: B)
+            return cosineSim(A: A, B: B)
         case .Tanimoto:
-            return tanimotoSim(A, B: B)
+            return tanimotoSim(A: A, B: B)
         case .Ochiai:
-            return ochiaiSim(A, B: B)
+            return ochiaiSim(A: A, B: B)
         case .JaccardIndex:
-            return jaccardIndex(A, B: B)
+            return jaccardIndex(A: A, B: B)
         case .JaccardDistance:
-            return jaccardDist(A, B: B)
+            return jaccardDist(A: A, B: B)
         case .Dice:
-            return diceCoef(A, B: B)
+            return diceCoef(A: A, B: B)
         case .Hamming:
-            return hammingDist(A, B: B)
+            return hammingDist(A: A, B: B)
         }
     }
 }
