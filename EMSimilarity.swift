@@ -56,7 +56,7 @@ class EMSimilarity {
     /** Pop the currentSimMode via pop if it won't make the stack empty **/
     func popSimMode() {
         if self.currentSimMode.count > 1 {
-            if let _ = self.currentSimMode.popLast()
+            let _ = self.currentSimMode.popLast()
         }
     }
     
@@ -76,7 +76,7 @@ class EMSimilarity {
     /** Pop the currentMismatchMode via pop if it won't make the stack empty **/
     func popMismatchMode() {
         if self.currentMismatchMode.count > 1 {
-            if let _ = self.currentMismatchMode.popLast()
+            let _ = self.currentMismatchMode.popLast()
         }
     }
     
